@@ -7,18 +7,30 @@ function Contact() {
     message: ''
   });
 
+  const [submitted, setSubmitted] = useState(false);
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Form submitted!');
+    setSubmitted(true);
   };
 
   return (
     <div style={{ padding: '20px' }}>
       <h1>Contact Us</h1>
+
+      {submitted && (
+        <p style={{ color: 'green' }}>
+          Thank you! Your message has been sent.
+        </p>
+      )}
+
       <form onSubmit={handleSubmit}>
         <input
           type="text"
