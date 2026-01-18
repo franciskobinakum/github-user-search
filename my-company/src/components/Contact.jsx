@@ -1,9 +1,15 @@
 import { useState } from 'react';
 
 function Contact() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,33 +18,46 @@ function Contact() {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>Contact Us</h1>
+      <h1 style={{ color: '#0b74de' }}>Contact Us</h1>
 
       <form onSubmit={handleSubmit}>
         <input
+          style={{ display: 'block', margin: '10px 0', padding: '8px' }}
           type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          style={{ display: 'block', marginBottom: '10px' }}
+          name="name"
+          placeholder="Your Name"
+          value={formData.name}
+          onChange={handleChange}
         />
 
         <input
+          style={{ display: 'block', margin: '10px 0', padding: '8px' }}
           type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{ display: 'block', marginBottom: '10px' }}
+          name="email"
+          placeholder="Your Email"
+          value={formData.email}
+          onChange={handleChange}
         />
 
         <textarea
-          placeholder="Message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          style={{ display: 'block', marginBottom: '10px' }}
+          style={{ display: 'block', margin: '10px 0', padding: '8px' }}
+          name="message"
+          placeholder="Your Message"
+          value={formData.message}
+          onChange={handleChange}
         />
 
-        <button type="submit">Send</button>
+        <button
+          style={{
+            padding: '10px',
+            backgroundColor: '#0b74de',
+            color: 'white',
+            border: 'none'
+          }}
+          type="submit"
+        >
+          Send Message
+        </button>
       </form>
     </div>
   );
