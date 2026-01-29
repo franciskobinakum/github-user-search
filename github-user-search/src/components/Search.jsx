@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { searchUsers } from '../services/githubService';
+import { fetchUserData } from '../services/githubService';
 
 function Search() {
   const [username, setUsername] = useState('');
@@ -16,10 +16,10 @@ function Search() {
     setUsers([]);
 
     try {
-      const results = await searchUsers(username, location, minRepos);
+      const results = await fetchUserData(username, location, minRepos);
       setUsers(results);
     } catch (err) {
-      setError('Something went wrong. Try again.');
+      setError('Looks like we cant find the user');
     } finally {
       setLoading(false);
     }
@@ -64,7 +64,6 @@ function Search() {
       </form>
 
       {loading && <p className="mt-4">Loading...</p>}
-
       {error && <p className="mt-4 text-red-600">{error}</p>}
 
       <div className="mt-6 space-y-4">
